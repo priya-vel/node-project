@@ -16,7 +16,7 @@ const UserController = {
             }
 
 
-            const dbUserEmain = await UserService.getOneUser({
+            const dbUserEmail = await UserService.getOneUser({
                 email: body.email
             })
             if(dbUserEmail){
