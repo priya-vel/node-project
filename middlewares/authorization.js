@@ -6,7 +6,7 @@ const Authorization = async (req,res,next) =>{
     try{
         let auth = req.header.Authorization;
         let arr = String(auth).split(" ")
-        console.log(arr, req.header)
+        console.log(arr, req)
         if (arr.length != 2) {
             console.log("wrong length")
             throw "token not valid"
