@@ -6,10 +6,13 @@ const Authorization = async (req,res,next) =>{
     try{
         let auth = req.header.Authorization;
         let arr = String(auth).split(" ")
+        console.log(arr)
         if (arr.length != 2) {
+            console.log("wrong length")
             throw "token not valid"
         }
-        if (arr[0]!=="Barear"){
+        if (arr[0] !== "Barear"){
+            console.log("spelling mistake in first")
             throw "token not valid"
         }
         
@@ -18,6 +21,7 @@ const Authorization = async (req,res,next) =>{
         let dbUser = await UserService.getOneUser({_id:id})
 
         if(!dbuser){
+            console.log("user not found in db")
             throw "invalid token"
         }
 
