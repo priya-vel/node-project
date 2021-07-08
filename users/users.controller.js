@@ -7,12 +7,12 @@ const UserController = {
     async register(req, res, next) {
         try{
           const body = req.body;
-            
+            console.log(body);
             const dbUser = await UserService.getOneUser({
                 name: body.name
             })
             if(dbUser){
-                throw "user with same name already exixts "
+                throw new Error("user with same name already exixts ")
             }
 
 
@@ -20,17 +20,13 @@ const UserController = {
                 email: body.email
             })
             if(dbUserEmail){
-                throw "user with same email already exists"
-
+                throw new Error("user with same email already exists")
             }
 
-            const resposnse = UserService.createUser(body)
+            const response = UserService.createUser(body)
             res.status(201).json({
-                data:response
+                data:response 
             });
-            return
-
-            
         }catch(error){
             console.log(error);
             res.status(500).json({
@@ -42,13 +38,16 @@ const UserController = {
     },
     async login(req, res, next) {
         try{
+            
             let body = req.body;
+            console.log(body);
+
             let dbUser = await UserService.getOneUser({email: body.email});
 
             if(!dbUser){
                 throw "user not found";
             }
-            const comparePassword = await bcrypt.compare(body.Password,dbUser.Password);
+            const comparePassword = await bcrypt.compare(body.password,dbUser.password);
 
             if(!comparePassword){
                 throw "invalid credential"

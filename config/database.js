@@ -1,9 +1,10 @@
 const { connect } = require("mongoose");
 
 
+const mongoURI = process.env.MONGO_URI
 
 const DBConnection = () => {
-    return connect("mongodb+srv://priya:root@cluster0.sbi2t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{
+    return connect(mongoURI,{
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
